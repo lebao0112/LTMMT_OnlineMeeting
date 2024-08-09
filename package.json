@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "concurrently \"npx nodemon server.js\" \"npx peerjs --port 3001\""
+    "build": "chmod +x ./node_modules/.bin/concurrently && chmod +x ./node_modules/.bin/nodemon && chmod +x ./node_modules/.bin/peerjs",
+    "devStart": "npx concurrently \"npx nodemon server.js\" \"npx peerjs --port 3001\""
   },
   "keywords": [],
   "author": "",
