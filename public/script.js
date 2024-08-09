@@ -3,7 +3,6 @@ const videoGrid = document.getElementById("video-grid");
 const myPeer = new Peer(undefined, {
   host: window.location.hostname,
   port: window.location.port || "443", // Use port 443 for HTTPS
-  path: "/peerjs", // Specify path if required by your PeerJS server
   secure: true, // Ensure the connection is secure (HTTPS)
 });
 const myVideo = document.createElement("video");
