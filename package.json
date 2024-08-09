@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm i -g peerjs",
-    "start": "npx concurrently \"npx nodemon server.js\" \"npx peerjs --port 3001\""
+    "devStart": "nodemon server.js",
+    "peerjs": "peerjs --port 3001",
+    "start": "concurrently \"npm run devStart\" \"npm run peerjs\"",
+    "build": "echo 'Add build commands here'"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +19,7 @@
     "uuid": "^8.1.0"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
+    "concurrently": "^7.6.0",
     "nodemon": "^2.0.4"
   }
 }
