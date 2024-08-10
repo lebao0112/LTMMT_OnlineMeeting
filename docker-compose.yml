@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Expose only port 3000 for the Node.js app
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - peerjs
+    environment:
+      - PEERJS_PORT=3001
+      - PEERJS_PATH=/peerjs
+      - PEERJS_DEBUG=true
+    networks:
+      - internal 
+
+  peerjs:
+    image: peerjs/peerjs-server:latest
+    ports:
+      - "3001:3001"  # Expose port 3001 for PeerJS server
+    environment:
+      - PEERJS_PORT=3001
+      - PEERJS_PATH=/peerjs
+      - PEERJS_DEBUG=true
+    command: peerjs --port 3001 --path /peerjs --debug
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
