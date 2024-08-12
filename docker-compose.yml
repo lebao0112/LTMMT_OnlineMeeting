@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"  # Expose only port 3000 for the Node.js app
+      - "3000"  # allow  only port 3000 for the Node.js app internal
     volumes:
       - .:/usr/src/app
     depends_on:
@@ -14,12 +14,12 @@ services:
       - PEERJS_PATH=/peerjs
       - PEERJS_DEBUG=true
     networks:
-      - internal 
+      - internal
 
   peerjs:
     image: peerjs/peerjs-server:latest
     ports:
-      - "3001:3001"  # Expose port 3001 for PeerJS server
+      - "3001"  # allow  port 3001 for PeerJS server internal
     environment:
       - PEERJS_PORT=3001
       - PEERJS_PATH=/peerjs
@@ -28,6 +28,20 @@ services:
     networks:
       - internal
 
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/amazdo.com.conf
+    depends_on:
+      - app
+      - peerjs
+    networks:
+      - internal
+
 networks:
   internal:
     driver: bridge
+
